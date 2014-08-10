@@ -5,7 +5,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace Trustpilot
 {
@@ -64,41 +63,35 @@ namespace Trustpilot
         #if DEBUG
         int i = 0;
         #endif
-//        Barrier barrier = new Barrier(subsets.Count);
         foreach (string word in subsets)
         {
           #if DEBUG
-          Console.WriteLine("Level {0} iter {1}/{2}", wordsLeft, i++, subsets.Count);
+          Console.WriteLine("Level {0} iter {1}/{2}", wordsLeft, i, subsets.Count);
           if (wordsLeft == 3)
           {
             Thread.Sleep(200);
           }
           #endif
 
-          Task.Factory.StartNew(() =>
+          string rest = anagram.Subtract(word);
+
+          if (String.IsNullOrEmpty(rest.Trim()))
+            continue;
+            
+          List<string> nextWords = SearchForAnagram(rest, subsets, wordsLeft - 1);
+          foreach (string nw in nextWords)
           {
-            string rest = anagram.Subtract(word);
-
-            if (String.IsNullOrEmpty(rest.Trim()))
-              return;
-
-            List<string> nextWords = SearchForAnagram(rest, subsets, wordsLeft - 1);
-            foreach (string nw in nextWords)
+            if (nw.Replace(" ", "").Length == rest.Replace(" ", "").Length)
             {
-              if (nw.Replace(" ", "").Length == rest.Replace(" ", "").Length)
-              {
-                string combined = word + " " + nw;
-                foundWords.Add(combined);
-              }
+              string combined = word + " " + nw;
+              foundWords.Add(combined);
             }
-
-          });
-
-
-
+          }
+          #if DEBUG
+          i++;
+          #endif
         }
       }
-
 
       return foundWords;
 
