@@ -1,0 +1,5 @@
+F:\Projects\Anagram\Trustpilot\bin\Release\wordlist.txt
+F:\Projects\Anagram\Trustpilot\bin\Release\Trustpilot.exe
+F:\Projects\Anagram\Trustpilot\bin\Release\Trustpilot.pdb
+F:\Projects\Anagram\Trustpilot\obj\x86\Release\Trustpilot.exe
+F:\Projects\Anagram\Trustpilot\obj\x86\Release\Trustpilot.pdb
