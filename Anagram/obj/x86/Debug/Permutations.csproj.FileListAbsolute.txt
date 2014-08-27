@@ -1,4 +1,0 @@
-F:\Projects\Anagram\Anagram\bin\Debug\Anagram.exe
-F:\Projects\Anagram\Anagram\bin\Debug\Anagram.pdb
-F:\Projects\Anagram\Anagram\obj\x86\Debug\Anagram.exe
-F:\Projects\Anagram\Anagram\obj\x86\Debug\Anagram.pdb

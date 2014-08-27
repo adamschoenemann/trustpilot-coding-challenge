@@ -1,5 +1,0 @@
-F:\Projects\Anagram\Trustpilot\bin\Debug\wordlist.txt
-F:\Projects\Anagram\Trustpilot\bin\Debug\Trustpilot.exe
-F:\Projects\Anagram\Trustpilot\bin\Debug\Trustpilot.pdb
-F:\Projects\Anagram\Trustpilot\obj\x86\Debug\Trustpilot.exe
-F:\Projects\Anagram\Trustpilot\obj\x86\Debug\Trustpilot.pdb
