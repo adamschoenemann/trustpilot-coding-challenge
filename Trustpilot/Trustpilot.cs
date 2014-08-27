@@ -5,7 +5,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace Trustpilot
 {
@@ -13,7 +12,6 @@ namespace Trustpilot
   {
     public static void Main(string[] args)
     {
-
       string anagram = "poultry outwits ants";
 
       List<string> lines = new List<string>(File.ReadAllLines("wordlist.txt"));
@@ -58,59 +56,41 @@ namespace Trustpilot
       if (wordsLeft == 1)
       {
         foundWords = subsets;
-        return foundWords;
       }
       else
       {
-        Task[] tasks = new Task[subsets.Count];
         foundWords = new List<string>(subsets.Count);
         #if DEBUG
         int i = 0;
-        int done = 0;
         #endif
         foreach (string word in subsets)
         {
-          tasks[i] = Task.Factory.StartNew(() =>
+          #if DEBUG
+          Console.WriteLine("Level {0} iter {1}/{2}", wordsLeft, i, subsets.Count);
+          if (wordsLeft == 3)
           {
-            #if DEBUG
-            Console.WriteLine("Level {0} iter {1}/{2}", wordsLeft, i, subsets.Count);
-            if (wordsLeft == 3)
+            Thread.Sleep(200);
+          }
+          #endif
+
+          string rest = anagram.Subtract(word);
+
+          if (String.IsNullOrEmpty(rest.Trim()))
+            continue;
+            
+          List<string> nextWords = SearchForAnagram(rest, subsets, wordsLeft - 1);
+          foreach (string nw in nextWords)
+          {
+            if (nw.Replace(" ", "").Length == rest.Replace(" ", "").Length)
             {
-//              Thread.Sleep(200);
+              string combined = word + " " + nw;
+              foundWords.Add(combined);
             }
-            #endif
-
-            string rest = anagram.Subtract(word);
-
-            if (String.IsNullOrEmpty(rest.Trim()))
-            {
-              done++;
-              return;
-            }
-
-            List<string> nextWords = SearchForAnagram(rest, subsets, wordsLeft - 1);
-            foreach (string nw in nextWords)
-            {
-              if (nw.Replace(" ", "").Length == rest.Replace(" ", "").Length)
-              {
-                string combined = word + " " + nw;
-                foundWords.Add(combined);
-              }
-            }
-            done++;
-
-            Console.WriteLine("Done: " + done);
-            #if DEBUG
-            i++;
-            #endif
-          });
-
+          }
+          #if DEBUG
+          i++;
+          #endif
         }
-//        while (done < tasks.Length)
-//        {
-//          Console.WriteLine("Done: " + done + " tasks.Length: " + tasks.Length);
-//        }
-        Thread.Sleep(10000);
       }
 
       return foundWords;
