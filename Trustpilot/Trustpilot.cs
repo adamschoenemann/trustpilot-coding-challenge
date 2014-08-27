@@ -37,6 +37,7 @@ namespace Trustpilot
       }
 
       Console.WriteLine(correct + " is the correct phrase!!!!!!!");
+      Console.ReadLine();
     }
 
     public static List<string> FindSubsets(string superset, List<string> words)
